@@ -1,0 +1,5 @@
+MinGW
+
+1. g++ -c BaseShapes.cxx -o result.o -I"C:\MinGW\include"
+2. g++ -o result.exe result.o -L"C:\MinGW\lib" -lglu32 -lopengl32 -lfreeglut
+3. result.exe

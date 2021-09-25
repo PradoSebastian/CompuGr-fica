@@ -1,0 +1,44 @@
+void Dibujar(int x0, int y0, int x, int y) {
+  Screen[((y0+y)* Height) + (x0+x)] += 2;
+  Screen[((y0+y)* Height) + (x0-x)] += 2;
+  Screen[((y0-y)* Height) + (x0+x)] += 2;
+  Screen[((y0-y)* Height) + (x0-x)] += 2;
+}
+
+void BresenhamElipse( int x0, int y0, int x1, int y1 )
+{
+
+  int rx = abs(x1-x0);
+  int ry = abs(y1-y0);
+  int x = 0;
+  int y = ry;
+
+  int rxpow = rx^2;
+  int rypow = ry^2;
+
+  int P1k = rypow - (rxpow * ry) + ((1/4)*rxpow);
+
+  while((rypow * x) <= (rxpow * y)) {
+    x++;
+    if(P1k < 0) {
+      P1k = P1k + (2*rypow*x) + rypow;
+    } else {
+      y--;
+      P1k = P1k + (2*rypow*x) - (2*rxpow*y) + rypow;
+    }
+    Dibujar(x0, y0, x, y);
+  }
+
+  int P2k = rypow * pow(x + (1/2), 2) + (rxpow * pow(y-1, 2)) - (rypow*rxpow);
+
+  while(y > 0) {
+    y--;
+    if(P2k > 0) {
+      P2k = P2k - (2*rxpow*y) + rxpow;
+    } else {
+      x++;
+      P2k = P2k + (2*rypow*x) - (2*rxpow*y) + rxpow;
+    }
+    Dibujar(x0, y0, x, y);
+  }
+}
